@@ -1,7 +1,11 @@
 package com.kiss.realmretrofitandrxmvp.main;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,13 +14,19 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.kiss.realmretrofitandrxmvp.R;
 import com.kiss.realmretrofitandrxmvp.adapter.MainAdapter;
+import com.kiss.realmretrofitandrxmvp.detail.DetailActivity;
 import com.kiss.realmretrofitandrxmvp.model.GitHubUser;
+import com.kiss.realmretrofitandrxmvp.utils.Constans;
 
+import org.parceler.Parcels;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -29,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements MainView, MainAda
     RecyclerView mainRecyclerView;
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
+    @BindView(R.id.fMain)
+    FrameLayout fMain;
     private MainAdapter mainAdapter;
     private MainPresenter mainPresenter;
     private RealmUserUtils realmUserUtils;
@@ -42,6 +54,8 @@ public class MainActivity extends AppCompatActivity implements MainView, MainAda
         mainPresenter = new MainPrerenterImlp(this, realmUserUtils);
         mainRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mainPresenter.displayData();
+        Snackbar.make(fMain, "Muốn làm việc với realm tắt mạng đê :)", Snackbar.LENGTH_INDEFINITE).show();
+
     }
 
     @Override
@@ -72,22 +86,41 @@ public class MainActivity extends AppCompatActivity implements MainView, MainAda
         progressBar.setVisibility(View.GONE);
     }
 
-
     @Override
     public void onItemClick(View v, GitHubUser gitHubUser) {
-        realmUserUtils.dellUserId(gitHubUser.getId());
-        mainAdapter.notifyDataSetChanged();
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra(Constans.USER, Parcels.wrap(gitHubUser));
+        startActivity(intent);
     }
 
     @Override
     public void onLongClick(View v, GitHubUser gitHubUser) {
-        GitHubUser user = new GitHubUser();
-        user.setAvatar_url("https://avatars0.githubusercontent.com/u/1?v=4");
-        user.setLogin("Nhozip");
-        user.setId(gitHubUser.getId());
-        realmUserUtils.udapteOrInsertUser(user);
-        Toast.makeText(this, realmUserUtils.getUser(user.getId()).toString(), Toast.LENGTH_SHORT).show();
-        mainAdapter.notifyDataSetChanged();
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        List<String> listItems = new ArrayList<String>();
+        alert.setTitle("Xóa or update");
+        listItems.add("Del");
+        listItems.add("Update");
+        final CharSequence[] charSequenceItems = listItems.toArray(new CharSequence[listItems.size()]);
+        alert.setItems(charSequenceItems, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (i == 0) {
+                    realmUserUtils.dellUserId(gitHubUser.getId());
+                } else {
+                    GitHubUser user = new GitHubUser();
+                    user.setAvatar_url("https://avatars0.githubusercontent.com/u/1?v=4");
+                    user.setLogin("Nhozip");
+                    user.setId(gitHubUser.getId());
+                    realmUserUtils.udapteOrInsertUser(user);
+                    Toast.makeText(MainActivity.this, realmUserUtils.getUser(user.getId()).toString(), Toast.LENGTH_SHORT).show();
+
+                }
+                mainAdapter.notifyDataSetChanged();
+
+            }
+        });
+        alert.show();
+
     }
 
     @Override

@@ -8,4 +8,5 @@ public class Constans {
     public static final String URL = "https://api.github.com/";
 
     public static final String API_AUTH="/users";
+    public static final String USER="user";
 }

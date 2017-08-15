@@ -2,13 +2,18 @@ package com.kiss.realmretrofitandrxmvp.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
+import io.realm.GitHubUserRealmProxy;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by Admins on 7/30/2017.
  */
-
+@Parcel(implementations = {GitHubUserRealmProxy.class},
+        value = Parcel.Serialization.BEAN,
+        analyze = {GitHubUser.class})
 public class GitHubUser extends RealmObject {
 
     private String login;
@@ -18,6 +23,7 @@ public class GitHubUser extends RealmObject {
 
     public GitHubUser() {
     }
+
     public GitHubUser getGitHubUser() {
         return gitHubUser;
     }
