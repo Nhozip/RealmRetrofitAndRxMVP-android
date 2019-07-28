@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'realm-android'
-apply plugin: 'me.tatarka.retrolambda'
+//apply plugin: 'me.tatarka.retrolambda'
 
 
 android {
@@ -56,6 +56,6 @@ dependencies {
     annotationProcessor 'org.parceler:parceler:1.1.9'
     compile 'com.android.support:design:26.0.0-alpha1'
 }
-retrolambda {
-    javaVersion JavaVersion.VERSION_1_7
-}
+//retrolambda {
+//    javaVersion JavaVersion.VERSION_1_7
+//}

@@ -1,17 +1,11 @@
 package com.kiss.realmretrofitandrxmvp.main;
 
-import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.util.Log;
-
 import com.kiss.realmretrofitandrxmvp.model.GitHubUser;
 
-import java.util.Comparator;
 import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmList;
-import io.realm.RealmObject;
 import io.realm.RealmResults;
 import io.realm.Sort;
 
@@ -37,7 +31,8 @@ public class RealmUserUtils {
 
     //list sort
     public RealmResults<GitHubUser> getListUser() {
-        return realm.where(GitHubUser.class).findAllSorted("id", Sort.ASCENDING);
+//        return realm.where(GitHubUser.class).findAllSorted("id", Sort.ASCENDING);
+        return realm.where(GitHubUser.class).findAll();
     }
 
     public void addUser(GitHubUser gitHubUser) {
@@ -65,7 +60,8 @@ public class RealmUserUtils {
 
     }
 
-    public RealmResults<GitHubUser> getListUserSortD() {
-        return realm.where(GitHubUser.class).findAllSorted("id", Sort.DESCENDING);
+    public RealmList<GitHubUser> getListUserSortD() {
+//        return realm.where(GitHubUser.class).findAllSorted("id", Sort.DESCENDING);
+        return null;
     }
 }

@@ -21,7 +21,9 @@ import android.widget.Toast;
 import com.kiss.realmretrofitandrxmvp.R;
 import com.kiss.realmretrofitandrxmvp.adapter.MainAdapter;
 import com.kiss.realmretrofitandrxmvp.detail.DetailActivity;
+import com.kiss.realmretrofitandrxmvp.model.Data;
 import com.kiss.realmretrofitandrxmvp.model.GitHubUser;
+import com.kiss.realmretrofitandrxmvp.model.UserDetails;
 import com.kiss.realmretrofitandrxmvp.utils.Constans;
 
 import org.parceler.Parcels;
@@ -32,6 +34,7 @@ import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.realm.RealmList;
 import io.realm.Sort;
 
 public class MainActivity extends AppCompatActivity implements MainView, MainAdapter.OnItemClickListener {
@@ -52,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements MainView, MainAda
         ButterKnife.bind(this);
         realmUserUtils = new RealmUserUtils();
         mainPresenter = new MainPrerenterImlp(this, realmUserUtils);
+
         mainRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mainPresenter.displayData();
         Snackbar.make(fMain, "Muốn làm việc với realm tắt mạng đê :)", Snackbar.LENGTH_INDEFINITE).show();
@@ -89,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements MainView, MainAda
     @Override
     public void onItemClick(View v, GitHubUser gitHubUser) {
         Intent intent = new Intent(this, DetailActivity.class);
-        intent.putExtra(Constans.USER, Parcels.wrap(gitHubUser));
+        intent.putExtra(Constans.USER, gitHubUser);
         startActivity(intent);
     }
 
@@ -111,7 +115,14 @@ public class MainActivity extends AppCompatActivity implements MainView, MainAda
                     user.setAvatar_url("https://avatars0.githubusercontent.com/u/1?v=4");
                     user.setLogin("Nhozip");
                     user.setId(gitHubUser.getId());
+                    RealmList<UserDetails> userDetails = new RealmList<>();
+                    for (int index = 0; index < 10; index++) {
+                        userDetails.add(new UserDetails(index, "aaa", "hjasd"));
+                    }
+                    user.setData(new Data(1, "data"));
+                    user.setDetailsRealmList(userDetails);
                     realmUserUtils.udapteOrInsertUser(user);
+//                    Log.e("DATAAA", realmUserUtils.getUser(user.getId()).getData());
                     Toast.makeText(MainActivity.this, realmUserUtils.getUser(user.getId()).toString(), Toast.LENGTH_SHORT).show();
 
                 }

@@ -1,28 +1,52 @@
 package com.kiss.realmretrofitandrxmvp.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-import org.parceler.Parcel;
+import java.util.List;
 
-import io.realm.GitHubUserRealmProxy;
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by Admins on 7/30/2017.
  */
-@Parcel(implementations = {GitHubUserRealmProxy.class},
-        value = Parcel.Serialization.BEAN,
-        analyze = {GitHubUser.class})
-public class GitHubUser extends RealmObject {
+
+public class GitHubUser extends RealmObject implements Parcelable {
 
     private String login;
     @PrimaryKey
     private int id;
     private String avatar_url;
+    private Data data;
+    RealmList<UserDetails> detailsRealmList;
 
     public GitHubUser() {
     }
+
+
+    protected GitHubUser(Parcel in) {
+        login = in.readString();
+        id = in.readInt();
+        avatar_url = in.readString();
+        data = in.readParcelable(Data.class.getClassLoader());
+        gitHubUser = in.readParcelable(GitHubUser.class.getClassLoader());
+    }
+
+    public static final Creator<GitHubUser> CREATOR = new Creator<GitHubUser>() {
+        @Override
+        public GitHubUser createFromParcel(Parcel in) {
+            return new GitHubUser(in);
+        }
+
+        @Override
+        public GitHubUser[] newArray(int size) {
+            return new GitHubUser[size];
+        }
+    };
 
     public GitHubUser getGitHubUser() {
         return gitHubUser;
@@ -64,12 +88,44 @@ public class GitHubUser extends RealmObject {
         this.avatar_url = avatar_url;
     }
 
+    public RealmList<UserDetails> getDetailsRealmList() {
+        return detailsRealmList;
+    }
+
+    public Data getData() {
+        return data;
+    }
+
+    public void setData(Data data) {
+        this.data = data;
+    }
+
+    public void setDetailsRealmList(RealmList<UserDetails> detailsRealmList) {
+        this.detailsRealmList = detailsRealmList;
+    }
+
     @Override
     public String toString() {
         return "GitHubUser{" +
                 "login='" + login + '\'' +
                 ", id=" + id +
                 ", avatar_url='" + avatar_url + '\'' +
+                ", detailsRealmList=" + detailsRealmList +
+
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(login);
+        parcel.writeInt(id);
+        parcel.writeString(avatar_url);
+        parcel.writeParcelable(data, i);
+        parcel.writeParcelable(gitHubUser, i);
     }
 }
