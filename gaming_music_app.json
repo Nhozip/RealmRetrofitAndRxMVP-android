@@ -1,0 +1,27 @@
+{
+  "ads": {
+    "id_app": "",
+    "banner_setting": "ca-app-pub-3399710561924220/8502582106",
+    "inter_setting": "ca-app-pub-3399710561924220/9624092082",
+    "banner_main": "ca-app-pub-3399710561924220/5684847073",
+    "inter_main": "ca-app-pub-3399710561924220/5305271805",
+
+    "banner_setting_new": "",
+    "inter_setting_new": "",
+    "banner_main_new": "",
+    "inter_main_new": "",
+    "onlyAdmod": false,
+    "onlyFB": true,
+    "fb_banner": "",
+    "fb_inter": ""
+  },
+  "isExit": true,
+  "showMoreApp": false,
+  "idNew": "",
+  "app_exists": {
+    "id": "com.king.candycrushsaga",
+    "is_exists": true,
+    "is_show_more": true
+  },
+  "apps": []
+}
