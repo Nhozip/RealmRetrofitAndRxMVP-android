@@ -1,0 +1,9 @@
+– PRIVACY POLICY  : Calculator
+I. Scope of our policyThis Privacy Policy applies to personal and anonymous information submitted and collected through the Services.
+By installing, using, registering to or otherwise accessing the Services, you are accepting the practices described in this Privacy Policy. If you do not agree to this Privacy Policy, please do not install, use, register to or otherwise access the Services. Free fire wallpaper - fee fire guide reserves the right to modify this Privacy Policy at reasonable times, so please review it frequently. Your continued uses of the Services will signify your acceptance to the changes to this Privacy Policy.II. Information collected:
+1. Permission android.permission.READ EXTERNAL STORAGE to choose photo from your external storage
+2. Permission android.permission.WRITE EXTERNAL STORAGE to save photo to your external storage
+3. Permission android.permission.INTERNET to use your internet
+4.Permission android.permission.ACCESS_NETWORK_STATE to allows the app to get information about the network.
+5.Permission android.permission.SET_WALLPAPER to set your wallpaper
+6.Permission android.permission.ACCESS_WIFI_STATE to Allows the app to access information about Wi-Fi networks.However these data is not collected on our servers or shared to third parties, the data is stored only on your device. If you have any questions or concerns about our privacy policies, please contact us: nguyenchien.aib@gmail.com
